@@ -35,8 +35,10 @@ echo $value
 if [ "$value" = "4 received" ]; then
 	echo "all good"
 else
+	gpio mode out
 	gpio write 4 1 #Cut power
 	sleep 30 #Wait 30 seconds
 	gpio write 4 0 #Restore power
-	sleep 600 #Wait 10 minutes before exiting
+	sleep 300 #Wait 5 minutes before exiting
+	echo "reboot occurred" $(date) >> log.txt #Log our reboot
 fi
